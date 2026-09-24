@@ -12,7 +12,10 @@ export default function TaskItem({ task, onToggle }) {
   return (
     <div className={'task-card' + (done ? ' done' : '')}>
       <div className="task-main">
-        <span className="task-title">{task.name}</span>
+        <span className="task-title">{task.title}</span>
+        {task.description && (
+          <p className="task-description">{task.description}</p>
+        )}
         <div className="task-meta">
           <span className={'status-badge status-' + (task.status || '').toLowerCase()}>
             {statusLabel}
@@ -23,6 +26,9 @@ export default function TaskItem({ task, onToggle }) {
             </span>
           )}
           {task.assignee && <span className="assignee-chip">{task.assignee.username}</span>}
+          <span className="comment-count">
+            {task.commentCount || 0} {task.commentCount === 1 ? 'comment' : 'comments'}
+          </span>
         </div>
       </div>
       <button className="toggle-btn" onClick={() => onToggle(task)}>
